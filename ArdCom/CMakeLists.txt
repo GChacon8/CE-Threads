@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.29)
-project(Pruebas_CeThreads)
+project(ArdCom C)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_C_STANDARD 11)
 
-add_executable(Pruebas_CeThreads
-    main.cpp)
+add_executable(ArdCom main.c
+        Libs/serial_com.h
+        Libs/serial_com.c)

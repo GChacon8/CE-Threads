@@ -27,7 +27,7 @@
 					[
 						0
 					],
-					"name" : "Pruebas_CeThreads",
+					"name" : "ArdCom",
 					"targetIndexes" : 
 					[
 						0
@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "Pruebas_CeThreads::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Pruebas_CeThreads-Debug-b30a86d3f9fc88f38fe0.json",
-					"name" : "Pruebas_CeThreads",
+					"id" : "ArdCom::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ArdCom-Debug-9bcd3da973f44b374f45.json",
+					"name" : "ArdCom",
 					"projectIndex" : 0
 				}
 			]
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/Gits/Pruebas CeThreads/cmake-build-debug",
-		"source" : "D:/Gits/Pruebas CeThreads"
+		"build" : "D:/Gits/CE-Threads/ArdCom/cmake-build-debug",
+		"source" : "D:/Gits/CE-Threads/ArdCom"
 	},
 	"version" : 
 	{
