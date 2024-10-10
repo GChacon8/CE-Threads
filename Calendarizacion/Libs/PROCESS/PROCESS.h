@@ -12,6 +12,8 @@ struct Process {
     int turnaround_time;
     int waiting_time;
     int is_completed;
+    int remaining_time;
+    int deadline;
 };
 
 void swap(struct Process *xp, struct Process *yp);

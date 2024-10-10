@@ -9,4 +9,13 @@ add_executable(Calendarizacion main.c
         Libs/Calendars/fcfs.c
         Libs/Calendars/fcfs.h
         Libs/Calendars/priority.cpp
-        Libs/Calendars/priority.h)
+        Libs/Calendars/priority.h
+        Libs/Calendars/SJF.c
+        Libs/Calendars/SJF.h
+        Libs/Calendars/Round_Robin.c
+        Libs/Calendars/Round_Robin.h
+        Libs/Queue/queue.c
+        Libs/Queue/queue.h
+        Libs/Calendars/edfs.c
+        Libs/Calendars/edfs.h
+        Libs/Calendars/Calendars.h)

@@ -1,0 +1,3 @@
+"D:\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\Calendarizacion.dir/objects.a
+"D:\CLion 2024.2.2\bin\mingw\bin\ar.exe" qc CMakeFiles\Calendarizacion.dir/objects.a @CMakeFiles\Calendarizacion.dir\objects1.rsp
+"D:\CLion 2024.2.2\bin\mingw\bin\gcc.exe" -g -Wl,--whole-archive CMakeFiles\Calendarizacion.dir/objects.a -Wl,--no-whole-archive -o Calendarizacion.exe -Wl,--out-implib,libCalendarizacion.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Calendarizacion.dir\linkLibs.rsp

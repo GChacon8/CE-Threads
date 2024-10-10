@@ -1,4 +1,4 @@
-/snap/clion/296/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/296/bin/ninja/linux/x64/ninja -G Ninja -S /home/kendall/Desktop/Operativos/CE-Threads/Calendarizacion -B /home/kendall/Desktop/Operativos/CE-Threads/Calendarizacion/cmake-build-debug
--- Configuring done (0.0s)
+"D:\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S D:\Gits\CE-Threads\Calendarizacion -B D:\Gits\CE-Threads\Calendarizacion\cmake-build-debug
+-- Configuring done (0.1s)
 -- Generating done (0.0s)
--- Build files have been written to: /home/kendall/Desktop/Operativos/CE-Threads/Calendarizacion/cmake-build-debug
+-- Build files have been written to: D:/Gits/CE-Threads/Calendarizacion/cmake-build-debug
