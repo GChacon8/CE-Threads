@@ -1,0 +1,3 @@
+/home/kendall/Desktop/Operativos/CE-Threads/Calendarizacion/cmake-build-debug/CMakeFiles/Calendarizacion.dir
+/home/kendall/Desktop/Operativos/CE-Threads/Calendarizacion/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kendall/Desktop/Operativos/CE-Threads/Calendarizacion/cmake-build-debug/CMakeFiles/rebuild_cache.dir
