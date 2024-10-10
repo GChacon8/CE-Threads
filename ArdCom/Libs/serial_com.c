@@ -1,70 +1,88 @@
 #include "serial_com.h"
-#include <fcntl.h>    // Para el control de archivos
-#include <unistd.h>   // Para las operaciones de lectura/escritura
+#include <fcntl.h>
+#include <unistd.h>
+#include <termios.h>
 #include <stdio.h>
 #include <string.h>
-#include <termios.h>  // Para la configuración del puerto serial
 
-int iniciarComunicacion(const char *puerto) {
-    int fd = open(puerto, O_RDWR | O_NOCTTY | O_NDELAY);
+// Iniciar la comunicación serial
+int iniciarComunicacion(const char *puerto_serial) {
+    int fd = open(puerto_serial, O_RDWR | O_NOCTTY);
     if (fd == -1) {
-        printf("Error al abrir el puerto %s\n", puerto);
+        perror("Error al abrir el puerto serial");
         return -1;
     }
 
-    struct termios options;
-    tcgetattr(fd, &options);  // Obtener la configuración actual del puerto
+    struct termios tty;
+    if (tcgetattr(fd, &tty) != 0) {
+        perror("Error obteniendo los atributos del puerto serial");
+        close(fd);
+        return -1;
+    }
 
-    // Configurar la velocidad del puerto a 9600 baudios
-    cfsetispeed(&options, B9600);
-    cfsetospeed(&options, B9600);
+    tty.c_cflag &= ~PARENB; // Sin paridad
+    tty.c_cflag &= ~CSTOPB; // 1 bit de parada
+    tty.c_cflag &= ~CSIZE;
+    tty.c_cflag |= CS8;     // 8 bits de datos
+    tty.c_cflag &= ~CRTSCTS; // Sin control de hardware
+    tty.c_cflag |= CREAD | CLOCAL; // Activar la lectura y sin control de línea
 
-    options.c_cflag |= (CLOCAL | CREAD);   // Activar el receptor y establecer la conexión local
-    options.c_cflag &= ~CSIZE;             // Limpiar el tamaño de los bits
-    options.c_cflag |= CS8;                // 8 bits de datos
-    options.c_cflag &= ~PARENB;            // Sin paridad
-    options.c_cflag &= ~CSTOPB;            // 1 bit de parada
-    options.c_cflag &= ~CRTSCTS;           // Sin control de flujo hardware
+    cfsetispeed(&tty, B9600);
+    cfsetospeed(&tty, B9600);
 
-    // Configuración de los timeouts
-    options.c_cc[VMIN]  = 0;    // Sin bytes mínimos requeridos para la lectura
-    options.c_cc[VTIME] = 10;   // Tiempo de espera (1 decisegundo)
+    tty.c_lflag &= ~ICANON;  // Modo no canónico
+    tty.c_lflag &= ~ECHO;    // Sin eco
+    tty.c_lflag &= ~ECHOE;
+    tty.c_lflag &= ~ISIG;
 
-    // Aplicar la configuración al puerto
-    tcsetattr(fd, TCSANOW, &options);
+    tty.c_iflag &= ~(IXON | IXOFF | IXANY);  // Sin control de flujo por software
+    tty.c_oflag &= ~OPOST;  // Sin procesamiento de salida
+
+    tty.c_cc[VMIN] = 1;     // Leer al menos 1 byte
+    tty.c_cc[VTIME] = 10;   // Timeout de 1 segundo
+
+    if (tcsetattr(fd, TCSANOW, &tty) != 0) {
+        perror("Error configurando el puerto serial");
+        close(fd);
+        return -1;
+    }
 
     return fd;
 }
 
+// Enviar comando al puerto serial
 int enviarComando(int fd, const char *comando) {
-    int bytes_written = write(fd, comando, strlen(comando));
-    if (bytes_written < 0) {
-        printf("Error escribiendo al puerto serial\n");
+    // Añadir un salto de línea al comando si es necesario
+    char comando_con_salto[100];
+    snprintf(comando_con_salto, sizeof(comando_con_salto), "%s\n", comando);
+
+    int n_written = write(fd, comando_con_salto, strlen(comando_con_salto));
+    if (n_written < 0) {
+        perror("Error enviando el comando al puerto serial");
         return 0;
     }
-    printf("%d bytes enviados\n", bytes_written);
     return 1;
 }
 
-int leerRespuesta(int fd, char *respuesta, int longitud) {
-    int total_bytes_read = 0;
-    int bytes_read;
+// Leer respuesta del puerto serial
+int leerRespuesta(int fd, char *respuesta, int tamano) {
+    memset(respuesta, 0, tamano);  // Limpiar buffer de respuesta
+    int n_read = read(fd, respuesta, tamano);
 
-    // Leer hasta que no haya más datos o se alcance el límite de longitud
-    do {
-        bytes_read = read(fd, respuesta + total_bytes_read, longitud - total_bytes_read);
-        if (bytes_read < 0) {
-            printf("Error leyendo del puerto serial\n");
-            return 0;
-        }
-        total_bytes_read += bytes_read;
-    } while (bytes_read > 0 && total_bytes_read < longitud - 1);
+    if (n_read < 0) {
+        perror("Error leyendo la respuesta del puerto serial");
+        return 0;
+    } else if (n_read == 0) {
+        printf("No se recibió respuesta del Arduino\n");
+        return 0;
+    }
 
-    respuesta[total_bytes_read] = '\0';  // Terminar cadena de respuesta
+    respuesta[n_read] = '\0';  // Asegurarse de que la cadena termine
     printf("Respuesta del Arduino: %s\n", respuesta);
     return 1;
 }
 
+// Cerrar la comunicación serial
 void cerrarComunicacion(int fd) {
-    close(fd);  // Cerrar el descriptor de archivo
+    close(fd);
 }

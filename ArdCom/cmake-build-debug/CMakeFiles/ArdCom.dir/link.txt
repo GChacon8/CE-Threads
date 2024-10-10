@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/ArdCom.dir/main.c.o CMakeFiles/ArdCom.dir/Libs/serial_com.c.o -o ArdCom

@@ -25,11 +25,11 @@ void loop() {
 
     command.trim();  // Elimina espacios en blanco alrededor del comando
 
-    if (command == "On") {
-      digitalWrite(ledPin, HIGH);  // Enciende el LED en el pin 2
+    if (command == "on") {
+      digitalWrite(ledPin2, HIGH);  // Enciende el LED en el pin 2
       Serial.println("LED encendido");
-    } else if (command == "Off") {
-      digitalWrite(ledPin, LOW);   // Apaga el LED en el pin 2
+    } else if (command == "off") {
+      digitalWrite(ledPin2, LOW);   // Apaga el LED en el pin 2
       Serial.println("LED Off");
     } else {
       Serial.println("Comando no reconocido");

@@ -8,7 +8,7 @@ int main() {
     char response[100];
 
     // Iniciar la comunicación con el puerto serial
-    fd = iniciarComunicacion("/dev/ttyUSB0");  // Ajustar según el puerto utilizado
+    fd = iniciarComunicacion("/dev/ttyACM0");  // Ajustar según el puerto utilizado
     if (fd == -1) {
         return 1;
     }
@@ -17,6 +17,7 @@ int main() {
     while (1) {
         printf("Escribe 'On' para encender el LED, 'Off' para apagarlo o 'q' para salir: ");
         scanf("%s", command);
+
 
         if (strcmp(command, "q") == 0) {
             printf("Saliendo del programa...\n");
