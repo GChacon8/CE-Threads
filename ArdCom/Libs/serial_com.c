@@ -5,7 +5,11 @@
 #include <stdio.h>
 #include <string.h>
 
-// Iniciar la comunicación serial
+/**
+ * Esta funcion inicia la comunicación con el arduino
+ * @param puerto_serial Un string con el puerto donde está el arduino
+ * @return
+ */
 int iniciarComunicacion(const char *puerto_serial) {
     int fd = open(puerto_serial, O_RDWR | O_NOCTTY);
     if (fd == -1) {
@@ -50,7 +54,12 @@ int iniciarComunicacion(const char *puerto_serial) {
     return fd;
 }
 
-// Enviar comando al puerto serial
+/**
+ * Esta funcion envia un comando por el puerto serial
+ * @param fd Un int de estado
+ * @param comando String con el comando a enviar al arduino
+ * @return Un valor de resultado
+ */
 int enviarComando(int fd, const char *comando) {
     // Añadir un salto de línea al comando si es necesario
     char comando_con_salto[100];
@@ -64,7 +73,13 @@ int enviarComando(int fd, const char *comando) {
     return 1;
 }
 
-// Leer respuesta del puerto serial
+/**
+ * Esta funcion se encarga de leer la respuesta de la comunicacion serial
+ * @param fd Un int de estado
+ * @param respuesta String con la respuesta del arduino
+ * @param tamano Tamaño del string respuesta
+ * @return Int de estado
+ */
 int leerRespuesta(int fd, char *respuesta, int tamano) {
     memset(respuesta, 0, tamano);  // Limpiar buffer de respuesta
     int n_read = read(fd, respuesta, tamano);
@@ -82,7 +97,11 @@ int leerRespuesta(int fd, char *respuesta, int tamano) {
     return 1;
 }
 
-// Cerrar la comunicación serial
+
+/**
+ * Esta funcion cierra la comunicacion serial
+ * @param fd Un int de estado
+ */
 void cerrarComunicacion(int fd) {
     close(fd);
 }

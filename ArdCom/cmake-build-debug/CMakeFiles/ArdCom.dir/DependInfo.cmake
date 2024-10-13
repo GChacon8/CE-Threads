@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/kendall/Desktop/Operativos/CE-Threads/ArdCom/Libs/serial_com.c" "CMakeFiles/ArdCom.dir/Libs/serial_com.c.o" "gcc" "CMakeFiles/ArdCom.dir/Libs/serial_com.c.o.d"
-  "/home/kendall/Desktop/Operativos/CE-Threads/ArdCom/main.c" "CMakeFiles/ArdCom.dir/main.c.o" "gcc" "CMakeFiles/ArdCom.dir/main.c.o.d"
+  "D:/Gits/CE-Threads/ArdCom/Libs/serial_com.c" "CMakeFiles/ArdCom.dir/Libs/serial_com.c.obj" "gcc" "CMakeFiles/ArdCom.dir/Libs/serial_com.c.obj.d"
+  "D:/Gits/CE-Threads/ArdCom/main.c" "CMakeFiles/ArdCom.dir/main.c.obj" "gcc" "CMakeFiles/ArdCom.dir/main.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

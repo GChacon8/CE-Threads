@@ -1,10 +1,12 @@
 file(REMOVE_RECURSE
-  "ArdCom"
+  "ArdCom.exe"
+  "ArdCom.exe.manifest"
   "ArdCom.pdb"
-  "CMakeFiles/ArdCom.dir/Libs/serial_com.c.o"
-  "CMakeFiles/ArdCom.dir/Libs/serial_com.c.o.d"
-  "CMakeFiles/ArdCom.dir/main.c.o"
-  "CMakeFiles/ArdCom.dir/main.c.o.d"
+  "CMakeFiles/ArdCom.dir/Libs/serial_com.c.obj"
+  "CMakeFiles/ArdCom.dir/Libs/serial_com.c.obj.d"
+  "CMakeFiles/ArdCom.dir/main.c.obj"
+  "CMakeFiles/ArdCom.dir/main.c.obj.d"
+  "libArdCom.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -1,1 +1,3 @@
-/usr/bin/cc -g CMakeFiles/ArdCom.dir/main.c.o CMakeFiles/ArdCom.dir/Libs/serial_com.c.o -o ArdCom
+"D:\CLion 2024.2.2\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\ArdCom.dir/objects.a
+"D:\CLion 2024.2.2\bin\mingw\bin\ar.exe" qc CMakeFiles\ArdCom.dir/objects.a @CMakeFiles\ArdCom.dir\objects1.rsp
+"D:\CLion 2024.2.2\bin\mingw\bin\gcc.exe" -g -Wl,--whole-archive CMakeFiles\ArdCom.dir/objects.a -Wl,--no-whole-archive -o ArdCom.exe -Wl,--out-implib,libArdCom.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\ArdCom.dir\linkLibs.rsp
