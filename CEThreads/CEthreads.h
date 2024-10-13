@@ -24,7 +24,7 @@ typedef struct {
 
 // Estructura para representar un mutex (equivalente a pthread_mutex_t)
 typedef struct {
-    int locked;          // Estado del mutex (0 = desbloqueado, 1 = bloqueado)
+    int futex;          // Estado del mutex (0 = desbloqueado, 1 = bloqueado)
 } CEmutex;
 
 // Función para crear un hilo (equivalente a pthread_create)
@@ -32,21 +32,21 @@ int CEthread_create(CEthread *thread, CEthread_attr_t *attr, void *(*start_routi
 //int CEthread_create(CEthread *thread, void *(*start_routine)(void *), void *arg);
 
 // Función para terminar un hilo (equivalente a pthread_exit)
-//void CEthread_end(void *retval);
+void CEthread_end(CEthread *thread);
 
 // Función para esperar a que un hilo termine (equivalente a pthread_join)
 int CEthread_join(CEthread *thread);
 
 // Función para inicializar un mutex (equivalente a pthread_mutex_init)
-//void CEmutex_init(CEmutex *mutex);
+void CEmutex_init(CEmutex *mutex);
 
 // Función para destruir un mutex (equivalente a pthread_mutex_destroy)
-//void CEmutex_destroy(CEmutex *mutex);
+void CEmutex_destroy(CEmutex *mutex);
 
 // Función para bloquear un mutex (equivalente a pthread_mutex_lock)
-//void CEmutex_lock(CEmutex *mutex);
+void CEmutex_lock(CEmutex *mutex);
 
 // Función para desbloquear un mutex (equivalente a pthread_mutex_unlock)
-//void CEmutex_unlock(CEmutex *mutex);
+void CEmutex_unlock(CEmutex *mutex);
 
 #endif /* CETHREADS_H */

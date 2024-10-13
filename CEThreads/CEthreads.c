@@ -6,33 +6,11 @@
 #include <stddef.h> // Para usar size_t
 #include <string.h>  // Para memset()
 #include <unistd.h>  // Para syscalls
+#include <limits.h>       // Para INT_MAX
+#include <errno.h>        // Para manejar errores
 #include "CEthreads.h"
-
-//CE_thread_t: identificador del hilo
-//CE_thread_attr_t: atributos del hilo (debe haber default)
-
-//CE_thread_create:
-//1.
-//-Puntero al identificadodr del hilo
-//-Puntero a los atributos del hilo
-//-Puntero a la funcion de inicio (funcion a correr)
-//-Puntero a los argumentos de la funcion de inicio
-
-//2.
-//Reservar espacio para la estructura del hilo (control block)
-//Asigna memoria para la pila del hilo (puede ser especificada en CE_thread_attr_t)
-
-//3.
-//Configuracion del contexto del hilo (mucha vara)
-
-//4.
-//Interaccion con el kernel syscall (clone() en linux)
-// user space -> kernel
-
-//5.
-//Se asigno el TID con el CE_thread_t
-
-//...
+#include <linux/futex.h>  // Para la syscall futex
+#include <sys/syscall.h>  // Para usar syscall()
 
 #define STACK_SIZE 1024 * 1024 // Tamaño de la pila de 1MB
 
@@ -54,7 +32,7 @@ int CEthread_create(CEthread *thread, CEthread_attr_t *attr, void *(*start_routi
     // Crea el hilo usando clone
     thread->thread_id = clone((int (*)(void *))start_routine, 
                               (char *)thread->stack + stack_size, 
-                              CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND | CLONE_THREAD, arg);
+                              CLONE_VM | CLONE_FS | CLONE_FILES | CLONE_SIGHAND, arg);
     if (thread->thread_id == -1) return -1; // Error al crear el hilo
 
     return 0; // Éxito
@@ -65,3 +43,38 @@ int CEthread_join(CEthread *thread) {
     // Espera que el hilo termine (waitpid con __WALL para hilos tipo clone)
     return waitpid(thread->thread_id, NULL, __WALL);
 }
+
+// Terminar el hilo
+void CEthread_end(CEthread *thread) {
+    kill(thread->thread_id, SIGTERM);  // Enviar señal de terminación
+    free(thread->stack);  // Liberar la pila
+}
+
+
+void CEmutex_init(CEmutex *mutex) {
+    mutex->futex = 0;
+}
+
+void CEmutex_destroy(CEmutex *mutex) {
+    mutex->futex = 0;  // Opcional: Dejar el valor en 0 para indicar que está destruido
+}
+
+void CEmutex_lock(CEmutex *mutex) {
+    // Intenta cambiar de 0 a 1 (adquirir el lock)
+    if (__sync_val_compare_and_swap(&mutex->futex, 0, 1) != 0) {
+        // Si no se adquiere el lock, bloquea en futex
+        while (syscall(SYS_futex, &mutex->futex, FUTEX_WAIT, 1, NULL, NULL, 0) == -1 && errno == EINTR) {
+            // Reintenta si la syscall fue interrumpida
+            continue;
+        }
+    }
+}
+
+void CEmutex_unlock(CEmutex *mutex) {
+    // Cambia el valor de 1 a 0 (libera el lock)
+    if (__sync_val_compare_and_swap(&mutex->futex, 1, 0) == 1) {
+        // Despierta a cualquier hilo esperando en el futex
+        syscall(SYS_futex, &mutex->futex, FUTEX_WAKE, 1, NULL, NULL, 0);
+    }
+}
+

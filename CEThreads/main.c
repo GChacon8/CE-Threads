@@ -1,55 +1,64 @@
 #define _GNU_SOURCE
-#include <sched.h>  // Para clone()
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
-#include <unistd.h>
-#include "CEthreads.h"  // Tu nueva biblioteca CEthreads
+#include <unistd.h>  // Para sleep()
+#include "CEthreads.h"  // Asegúrate de tener tu biblioteca
 #include "CEthreads.c"  // Tu nueva biblioteca CEthreads
 
 #define NUM_THREADS 5
 
-void *perform_work(void *arguments) {
-    int index = *((int *)arguments);
-    int sleep_time = 1 + rand() % NUM_THREADS;
-    printf("Thread %d: Started.\n", index);
-    printf("Thread %d: Will be sleeping for %d seconds.\n", index, sleep_time);
-    sleep(sleep_time);
-    printf("Thread %d: Ended.\n", index);
+// Variables compartidas
+int contador = 0;  // Variable que será incrementada por los hilos
+CEmutex mutex;     // Mutex para proteger la variable 'contador'
+
+// Función que cada hilo ejecutará
+void *incrementar(void *arg) {
+    int id = *(int *)arg;
+
+    // Cada hilo incrementa el contador 5 veces
+    for (int i = 0; i < 5; ++i) {
+        CEmutex_lock(&mutex);  // Sección crítica
+        contador++;
+        printf("Hilo %d incrementa contador a %d\n", id, contador);
+        CEmutex_unlock(&mutex);  // Fin de sección crítica
+
+        sleep(1);  // Simula alguna tarea
+    }
     return NULL;
 }
 
-int main(void) {
-    CEthread threads[NUM_THREADS];    // Usamos CEthread en lugar de pthread_t
-    int thread_args[NUM_THREADS];
-    int i;
-    int result_code;
+int main() {
+    CEthread threads[NUM_THREADS];
+    int thread_ids[NUM_THREADS];
 
-    // Crear todos los hilos uno por uno
-    for (i = 0; i < NUM_THREADS; i++) {
-        printf("In main: Creating thread %d.\n", i);
-        thread_args[i] = i;
-        result_code = CEthread_create(&threads[i], NULL, perform_work, &thread_args[i]);
-        if (result_code != 0) {
-        fprintf(stderr, "Error creating thread %d: %d\n", i, result_code);
-        exit(EXIT_FAILURE);  // Salir si hubo un error
+    // Inicializar el mutex
+    CEmutex_init(&mutex);
+
+    // Crear los hilos
+    for (int i = 0; i < NUM_THREADS; ++i) {
+        thread_ids[i] = i + 1;
+        if (CEthread_create(&threads[i], NULL, incrementar, &thread_ids[i]) != 0) {
+            perror("Error al crear hilo");
+            exit(1);
         }
-        assert(!result_code);  // Verificar que se crea el hilo correctamente
     }
 
-    printf("In main: All threads are created.\n");
-
-    // Esperar que cada hilo termine
-    for (i = 0; i < NUM_THREADS; i++) {
-        result_code = CEthread_join(&threads[i]);
-        if (result_code != 0) {
-        fprintf(stderr, "Error joining thread %d: %d\n", i, result_code);
-        exit(EXIT_FAILURE);  // Salir si hubo un error
-        }
-        assert(!result_code);  // Verificar que el hilo termina correctamente
-        printf("In main: Thread %d has ended.\n", i);
+    // Esperar a que todos los hilos terminen
+    for (int i = 0; i < NUM_THREADS; ++i) {
+        CEthread_join(&threads[i]);
     }
 
-    printf("Main program has ended.\n");
+    // Mostrar el valor final del contador
+    printf("Valor final del contador: %d\n", contador);
+
+    // Destruir el mutex
+    CEmutex_destroy(&mutex);
+
+    // Finalizar los hilos
+    for (int i = 0; i < NUM_THREADS; ++i) {
+        CEthread_end(&threads[i]);
+    }
+
     return 0;
 }
+
