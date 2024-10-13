@@ -1,6 +1,10 @@
 #include "priority.h"
 
-
+/**
+ ** Esta funcion se encarga de calcular el tiempo que se  gastaria con el priority
+ * @param processes objeto de tipo proceso
+ * @param n length
+ */
 void priority(struct Process processes[], int n) {
     int current_time = 0;
     int completed = 0;

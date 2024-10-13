@@ -1,5 +1,10 @@
 #include "fcfs.h"
 
+/**
+ * Esta funcion se encarga de calcular el tiempo por fcfs
+ * @param processes objeto de tipo proceso
+ * @param n length
+ */
 void fcfs(struct Process processes[], int n) {
     int current_time = 0;
 

@@ -1,5 +1,10 @@
 #include "SJF.h"
 
+/**
+ * Esta funcion se encarga de calcular el tiempo por SJF
+ * @param processes objeto de tipo proceso
+ * @param n lenght
+ */
 void SJF(struct Process processes[], int n) {
     int current_time = 0;
     int completed = 0;

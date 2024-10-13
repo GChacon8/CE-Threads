@@ -1,5 +1,11 @@
 #include "Round_Robin.h"
 
+/**
+ * Esta funcion se encarga de calcular el tiempo que se  gastaria con el round_robin
+ * @param processes objeto de tipo proceso
+ * @param n lenght
+ * @param time_quantum Tamaño del quantum(Set basico 3)
+ */
 void round_robin(struct Process processes[], int n, int time_quantum) {
     struct Queue ready_queue;
     initQueue(&ready_queue);

@@ -1,5 +1,11 @@
 #include "edfs.h"
 
+/**
+ * Esta funcion se encarga de calcular la calendarizacion del EDFS
+ * @param processes objeto de tipo proceso
+ * @param n length
+ * @param total_time
+ */
 void edfs(struct Process processes[], int n, int total_time) {
     int current_time = 0;
     int completed = 0;

@@ -1,12 +1,22 @@
 #include "PROCESS.h"
 #include <stdio.h>
 
+/**
+ * Esta funcion se encarga de cambiar un proceso por otro en la lista.
+ * @param xp objeto de tipo proceso
+ * @param yp objeto de tipo proceso
+ */
 void swap(struct Process *xp, struct Process *yp) {
     struct Process temp = *xp;
     *xp = *yp;
     *yp = temp;
 }
 
+/**
+ * Esta funcion ordena una lista de procesos
+ * @param processes lista de objetos de tipo proceso
+ * @param n length
+ */
 void sort_by_arrival_time(struct Process processes[], int n) {
     int i, j;
     for (i = 0; i < n-1; i++)
@@ -15,6 +25,12 @@ void sort_by_arrival_time(struct Process processes[], int n) {
                 swap(&processes[j], &processes[j+1]);
 }
 
+/**
+ * Esta funcion calcula el tiempo promedio de espera de los procesos
+ * @param processes lista de objetos de tipo proceso
+ * @param n lenght
+ * @return Tiempo promedio de espera
+ */
 float calculate_average_waiting_time(struct Process processes[], int n) {
     float total_waiting_time = 0;
     for (int i = 0; i < n; i++) {
@@ -23,6 +39,12 @@ float calculate_average_waiting_time(struct Process processes[], int n) {
     return total_waiting_time / n;
 }
 
+/**
+ * Esta funcion calcula el tiempo promedio en cola de los procesos
+ * @param processes lista de objetos de tipo proceso
+ * @param n length
+ * @return Tiempo de cola promedio de los procesos
+ */
 float calculate_average_turnaround_time(struct Process processes[], int n) {
     float total_turnaround_time = 0;
     for (int i = 0; i < n; i++) {
@@ -31,6 +53,11 @@ float calculate_average_turnaround_time(struct Process processes[], int n) {
     return total_turnaround_time / n;
 }
 
+/**
+ * Esta funcion se encarga de imprimir todos los procesos
+ * @param processes lista de objetos de tipo proceso
+ * @param n lenght
+ */
 void print_results(struct Process processes[], int n) {
     printf("\nProcess\t Arrival Time\t Burst Time\t Completion Time\t Turnaround Time\t Waiting Time\n");
     for (int i = 0; i < n; i++) {

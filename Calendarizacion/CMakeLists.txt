@@ -8,7 +8,7 @@ add_executable(Calendarizacion main.c
         Libs/PROCESS/PROCESS.h
         Libs/Calendars/fcfs.c
         Libs/Calendars/fcfs.h
-        Libs/Calendars/priority.cpp
+        Libs/Calendars/priority.c
         Libs/Calendars/priority.h
         Libs/Calendars/SJF.c
         Libs/Calendars/SJF.h
