@@ -1,9 +1,9 @@
-#define _GNU_SOURCE
+#define _GNU_SOURCE //Importante para el clone()
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>  // Para sleep()
-#include "CEthreads.h"  // Asegúrate de tener tu biblioteca
-#include "CEthreads.c"  // Tu nueva biblioteca CEthreads
+#include "CEthreads.h"  // CEthreads
+#include "CEthreads.c"  // CEthreads
 
 #define NUM_THREADS 5
 

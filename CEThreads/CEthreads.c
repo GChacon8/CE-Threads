@@ -14,9 +14,6 @@
 
 #define STACK_SIZE 1024 * 1024 // Tamaño de la pila de 1MB
 
-#include <sched.h>  // Para clone()
-#include <stdlib.h> // Para malloc()
-
 // Función para crear un hilo (equivalente a pthread_create)
 int CEthread_create(CEthread *thread, CEthread_attr_t *attr, void *(*start_routine)(void *), void *arg) {
     // Define el tamaño de la pila
@@ -50,15 +47,17 @@ void CEthread_end(CEthread *thread) {
     free(thread->stack);  // Liberar la pila
 }
 
-
+//Empieza un mutex en un estado de 0, o sea, desbloqueado
 void CEmutex_init(CEmutex *mutex) {
     mutex->futex = 0;
 }
 
+//No destruye como tal el mutex, pero lo restablece a su estado original
 void CEmutex_destroy(CEmutex *mutex) {
     mutex->futex = 0;  // Opcional: Dejar el valor en 0 para indicar que está destruido
 }
 
+//Funcion para bloquear el mutex, no permite el acceso al recurso
 void CEmutex_lock(CEmutex *mutex) {
     // Intenta cambiar de 0 a 1 (adquirir el lock)
     if (__sync_val_compare_and_swap(&mutex->futex, 0, 1) != 0) {
@@ -70,6 +69,7 @@ void CEmutex_lock(CEmutex *mutex) {
     }
 }
 
+//Funcion para desbloquear el mutex, permite el acceso al recurso
 void CEmutex_unlock(CEmutex *mutex) {
     // Cambia el valor de 1 a 0 (libera el lock)
     if (__sync_val_compare_and_swap(&mutex->futex, 1, 0) == 1) {
