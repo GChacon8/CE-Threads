@@ -3,6 +3,6 @@
 #include "../PROCESS/PROCESS.h"
 #include <limits.h>
 
-void priority(struct Process processes[], int n);
+void priority(struct Node* head);
 
 #endif //PRIORITY_H

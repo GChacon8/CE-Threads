@@ -3,6 +3,6 @@
 
 #include "../PROCESS/PROCESS.h"
 
-void fcfs(struct Process processes[], int n);
+void fcfs(struct Node* head);
 
 #endif //FCFS_HPP
