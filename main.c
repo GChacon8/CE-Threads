@@ -4,14 +4,16 @@
 #include <unistd.h>  // Para sleep()
 #include <limits.h>
 #include <stdbool.h>
-#include "Calendarizacion/Libs/Calendars/edfs.c"
-#include "Calendarizacion/Libs/Calendars/fcfs.c"
-#include "Calendarizacion/Libs/Calendars/priority.c"
-#include "Calendarizacion/Libs/Calendars/Round_Robin.c"
-#include "Calendarizacion/Libs/Calendars/SJF.c"
+#include "Calendarizacion/Libs/Calendars/edfs.h"
+#include "Calendarizacion/Libs/Calendars/fcfs.h"
+#include "Calendarizacion/Libs/Calendars/priority.h"
+#include "Calendarizacion/Libs/Calendars/Round_Robin.h"
+#include "Calendarizacion/Libs/Calendars/SJF.h"
 #include "CEThreads/CEthreads.h"  // CEthreads
-#include "CEThreads/CEthreads.c"  // CEthreads
-
+#include "ArdCom/Libs/serial_com.h"
+char command[100];
+char response[100];
+int fd;
 
 void *cruzar_canal(void *arg){
 
@@ -42,10 +44,31 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
       {
          struct CEthread current_process = dequeue(&barcos_L);
          printf("Hilo va a pasar el canal de izquierda a derecha\n");
+         switch (current_process.arrival_time) {
+            case 2:
+               strcpy(command, "normal_izq_on");
+               enviarComando(fd, command);
+               break;
+            case 1:
+               strcpy(command,"pesquero_izq_on"); enviarComando(fd,command); break;
+            case 0:
+               strcpy(command,"patrulla_izq_on"); enviarComando(fd,command); break;
+         }
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
          CEthread_join(&current_process);
+         switch (current_process.arrival_time) {
+            case 2:
+               strcpy(command, "normal_izq_off");
+            enviarComando(fd, command);
+            break;
+            case 1:
+               strcpy(command,"pesquero_izq_off"); enviarComando(fd,command); break;
+            case 0:
+               strcpy(command,"patrulla_izq_off"); enviarComando(fd,command); break;
+         }
          CEthread_end(&current_process);
+
       }
       else{
          finish_L = false;
@@ -59,9 +82,27 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
       {
          struct CEthread current_process = dequeue(&barcos_R);
          printf("Hilo va a pasar el canal de derecha a izquierda\n");
+         switch (current_process.arrival_time) {
+            case 2:
+               strcpy(command, "normal_der_on");
+            enviarComando(fd, command);
+            break;
+            case 1:
+               strcpy(command,"pesquero_der_on"); enviarComando(fd,command); break;
+            case 0:
+               strcpy(command,"patrulla_der_on"); enviarComando(fd,command); break;
+         }
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
          CEthread_join(&current_process);
+         switch (current_process.arrival_time) {
+            case 2:
+               strcpy(command, "normal_der_off"); enviarComando(fd, command); break;
+            case 1:
+               strcpy(command,"pesquero_der_off"); enviarComando(fd,command); break;
+            case 0:
+               strcpy(command,"patrulla_der_off"); enviarComando(fd,command); break;
+         }
          CEthread_end(&current_process);
       }
 
@@ -93,10 +134,30 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
       {
          struct CEthread current_process = dequeue(&barcos_L);
          printf("Hilo va a pasar el canal de izquierda a derecha\n");
+            switch (current_process.arrival_time) {
+               case 2:
+                  strcpy(command, "normal_izq_on");
+               enviarComando(fd, command);
+               break;
+               case 1:
+                  strcpy(command,"pesquero_izq_on"); enviarComando(fd,command); break;
+               case 0:
+                  strcpy(command,"patrulla_izq_on"); enviarComando(fd,command); break;
+            }
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
          CEthread_join(&current_process);
          timer = timer + 5 + 5*(current_process.arrival_time);
+            switch (current_process.arrival_time) {
+               case 2:
+                  strcpy(command, "normal_izq_off");
+               enviarComando(fd, command);
+               break;
+               case 1:
+                  strcpy(command,"pesquero_izq_off"); enviarComando(fd,command); break;
+               case 0:
+                  strcpy(command,"patrulla_izq_off"); enviarComando(fd,command); break;
+            }
          CEthread_end(&current_process);
       }
 
@@ -115,11 +176,31 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
          if (isEmpty(barcos_R)==0)
       {
          struct CEthread current_process = dequeue(&barcos_R);
+            switch (current_process.arrival_time) {
+               case 2:
+                  strcpy(command, "normal_der_on");
+               enviarComando(fd, command);
+               break;
+               case 1:
+                  strcpy(command,"pesquero_der_on"); enviarComando(fd,command); break;
+               case 0:
+                  strcpy(command,"patrulla_der_on"); enviarComando(fd,command); break;
+            }
          printf("Hilo va a pasar el canal de derecha a izquierda\n");
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
          CEthread_join(&current_process);
          timer = timer + 5 + 5*(current_process.arrival_time);
+            switch (current_process.arrival_time) {
+               case 2:
+                  strcpy(command, "normal_der_off");
+               enviarComando(fd, command);
+               break;
+               case 1:
+                  strcpy(command,"pesquero_der_off"); enviarComando(fd,command); break;
+               case 0:
+                  strcpy(command,"patrulla_der_off"); enviarComando(fd,command); break;
+            }
          CEthread_end(&current_process);
       }
 
@@ -157,6 +238,12 @@ int main() {
    int alg_canal; //Algoritmo de canal 1.Equidad 2.Letrero 3.Tico
    int intervalo; //Intervalo para el letrero
    //int W; //Numero de barcos para equidad
+
+   //Iniciar comunicacion serial
+   fd = iniciarComunicacion("/dev/ttyACM0");
+   if (fd==-1) {
+      return 1;
+   }
 
    CEmutex canal_mutex; //Control de recursos
 

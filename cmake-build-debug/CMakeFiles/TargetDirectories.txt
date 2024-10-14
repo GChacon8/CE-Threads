@@ -1,0 +1,3 @@
+/home/kendall/Desktop/Operativos/CE-Threads/cmake-build-debug/CMakeFiles/CE_Threads.dir
+/home/kendall/Desktop/Operativos/CE-Threads/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/kendall/Desktop/Operativos/CE-Threads/cmake-build-debug/CMakeFiles/rebuild_cache.dir
