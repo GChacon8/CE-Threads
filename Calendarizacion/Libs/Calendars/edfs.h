@@ -2,7 +2,7 @@
 #define EDFS_H
 
 #include "../../../CEThreads/CEthreads.h"
-#include "../../../CEThreads/CEthreads.c"
+
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
