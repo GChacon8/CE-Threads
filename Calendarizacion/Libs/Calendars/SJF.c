@@ -5,55 +5,43 @@
  * @param processes objeto de tipo proceso
  * @param n lenght
  */
-void SJF(struct Node* head) {
+void SJF(struct Process processes[], int n) {
     int current_time = 0;
     int completed = 0;
+    int total_idle_time = 0;
 
-    while (completed != 0) {
-        struct Process* current_process = find_shortest_job(head, current_time);
+    while (completed != n) {
+        int idx = -1;
+        int min_burst = INT_MAX;
 
-        if (current_process != NULL) {
-            current_process->completion_time = current_time + current_process->burst_time;
-            current_process->turnaround_time = current_process->completion_time - current_process->arrival_time;
-            current_process->waiting_time = current_process->turnaround_time - current_process->burst_time;
-
-            current_time = current_process->completion_time;
-            current_process->is_completed = 1;
-            completed++;
-
-            // Aquí podrías guardar o imprimir los resultados
-            printf("Proceso PID=%d completado en tiempo=%d\n", current_process->pid, current_process->completion_time);
-        } else {
-            current_time++; // Si no hay procesos listos, incrementamos el tiempo
-        }
-    }
-}
-
-/**
- *
- * @param head
- * @param current_time
- * @return
- */
-struct Process* find_shortest_job(struct Node* head, int current_time) {
-    struct Node* temp = head;
-    struct Process* shortest = NULL;
-    int min_burst = INT_MAX;
-
-    while (temp != NULL) {
-        if (temp->process.arrival_time <= current_time && temp->process.is_completed == 0) {
-            if (temp->process.burst_time < min_burst) {
-                min_burst = temp->process.burst_time;
-                shortest = &(temp->process);
-            } else if (temp->process.burst_time == min_burst) {
-                // Si hay empate en tiempo de ráfaga, preferimos el que llegó primero
-                if (temp->process.arrival_time < shortest->arrival_time) {
-                    shortest = &(temp->process);
+        for (int i = 0; i < n; i++) {
+            if (processes[i].arrival_time <= current_time && processes[i].is_completed == 0) {
+                if (processes[i].burst_time < min_burst) {
+                    min_burst = processes[i].burst_time;
+                    idx = i;
+                }
+                if (processes[i].burst_time == min_burst) {
+                    if (processes[i].arrival_time < processes[idx].arrival_time) {
+                        min_burst = processes[i].burst_time;
+                        idx = i;
+                    }
                 }
             }
         }
-        temp = temp->next;
-    }
 
-    return shortest;
+        if (idx != -1) {
+            processes[idx].completion_time = current_time + processes[idx].burst_time;
+            processes[idx].turnaround_time = processes[idx].completion_time - processes[idx].arrival_time;
+            processes[idx].waiting_time = processes[idx].turnaround_time - processes[idx].burst_time;
+
+            total_idle_time += current_time - processes[idx].arrival_time;
+
+            current_time = processes[idx].completion_time;
+            processes[idx].is_completed = 1;
+            completed++;
+        }
+        else {
+            current_time++;
+        }
+    }
 }

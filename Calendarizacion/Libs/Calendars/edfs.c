@@ -6,35 +6,22 @@
  * @param n length
  * @param total_time
  */
-void edfs(struct Process processes[], int n, int total_time) {
+void edfs(struct Node** head) {
+    struct Node* current = *head;
     int current_time = 0;
-    int completed = 0;
-    int *timeline = (int *)calloc(total_time, sizeof(int));
+    int size_ = size(head);
+    int i = 0;
 
-    while (current_time < total_time && completed < n) {
-        int idx = -1;
-        int earliest_deadline = INT_MAX;
-
-        for (int i = 0; i < n; i++) {
-            if (processes[i].arrival_time <= current_time && processes[i].is_completed == 0 && processes[i].remaining_time > 0) {
-                if (processes[i].deadline < earliest_deadline) {
-                    earliest_deadline = processes[i].deadline;
-                    idx = i;
-                }
-            }
+    while (i < size_) {
+        // Verifica si el proceso ha llegado
+        if (current_time >= current->process.arrival_time) {
+            // Ejecuta el proceso
+            current_time += current->process.burst_time;
+            current->process.completion_time = current_time;
+            current->process.turnaround_time = current->process.completion_time - current->process.arrival_time;
+            current->process.waiting_time = current->process.turnaround_time - current->process.burst_time;
+            current->process.is_completed = 1;
         }
-
-        if (idx != -1) {
-            timeline[current_time] = processes[idx].pid;
-            processes[idx].remaining_time--;
-
-            if (processes[idx].remaining_time == 0) {
-                processes[idx].completion_time = current_time + 1;
-                processes[idx].is_completed = 1;
-                completed++;
-            }
-        }
-
-        current_time++;
+        current = current->next;
     }
 }

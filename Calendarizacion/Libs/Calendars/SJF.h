@@ -4,7 +4,6 @@
 #include "../PROCESS/PROCESS.h"
 #include <limits.h>
 
-void SJF(struct Node* head);
-struct Process* find_shortest_job(struct Node* head, int current_time);
+void SJF(struct Process processes[], int n);
 
 #endif //SJF_H
