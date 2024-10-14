@@ -264,3 +264,15 @@ struct CEthread dequeue(struct Node** head) {
 
     return process;
 }
+
+/**
+ * Esta funcion imprime un solo proceso
+ * @param head La cabeza de una lista enlazada
+ */
+void print_process(struct Node* head) {
+    struct Node* act = head;
+    printf("PID=%d, Arrival=%d, Tipo=%d, Burst=%d, Completition Time=%d, Waiting Time=%d\n",
+                act->process.thread_id, act->process.arrival_time,
+                act->process.tipo, act->process.burst_time,
+                act->process.completion_time,act->process.waiting_time);
+}

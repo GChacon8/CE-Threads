@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>  // Para sleep()
 #include <limits.h>
+#include <stdbool.h>
 #include "Calendarizacion/Libs/Calendars/edfs.c"
 #include "Calendarizacion/Libs/Calendars/fcfs.c"
 #include "Calendarizacion/Libs/Calendars/priority.c"
@@ -12,17 +13,132 @@
 #include "CEThreads/CEthreads.c"  // CEthreads
 
 
+void *cruzar_canal(void *arg){
+
+   int sleeper = *(int *)arg;
+   int sleep_time = 5 + 5*sleeper;
+
+   printf("Este proceso va a durar %d segs pasando\n", sleep_time);
+
+   sleep(sleep_time);
+
+   return NULL;
+}
+
 // Equidad
 void equidad(struct Node* barcos_L, struct Node* barcos_R) {
+   int W;
+   bool finish_L = true;
+   bool finish_R = true;
+   // Se pide el algoritmo de canal deseado.
+   printf("Ingrese el valor W para el algoritmo de equidad: ");
+   scanf("%d", &W);
+
+   while (finish_L || finish_R)
+   {
+      for (int i = 0; i < W; i++)
+   {
+      if (isEmpty(barcos_L)==0)
+      {
+         struct CEthread current_process = dequeue(&barcos_L);
+         printf("Hilo va a pasar el canal de izquierda a derecha\n");
+         print_process(&current_process);
+         CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
+         CEthread_join(&current_process);
+         CEthread_end(&current_process);
+      }
+      else{
+         finish_L = false;
+         break;
+      }
+   }
+
+   for (int j = 0; j < W; j++)
+   {
+      if (isEmpty(barcos_R)==0)
+      {
+         struct CEthread current_process = dequeue(&barcos_R);
+         printf("Hilo va a pasar el canal de derecha a izquierda\n");
+         print_process(&current_process);
+         CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
+         CEthread_join(&current_process);
+         CEthread_end(&current_process);
+      }
+
+      else{
+         finish_R = false;
+         break;
+      }
+   }
+
+
+   }
     
 }
 
 void letrero(struct Node* barcos_L, struct Node* barcos_R) {
-    
+   int intervalo;
+   bool finish_L = true;
+   bool finish_R = true;
+   int timer = 0;
+
+   // Se pide el algoritmo de canal deseado.
+   printf("Ingrese el tiempo de letrero en segundos: ");
+   scanf("%d", &intervalo);
+
+   while (finish_L || finish_R){
+      while (timer<intervalo)
+      {
+         if (isEmpty(barcos_L)==0)
+      {
+         struct CEthread current_process = dequeue(&barcos_L);
+         printf("Hilo va a pasar el canal de izquierda a derecha\n");
+         print_process(&current_process);
+         CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
+         CEthread_join(&current_process);
+         timer = timer + 5 + 5*(current_process.arrival_time);
+         CEthread_end(&current_process);
+      }
+
+      else{
+         finish_L = false;
+         break;
+      }
+      }
+
+      printf("\nCambio de lado por cambio de letrero\n");
+      timer = 0;
+
+      while (timer<intervalo)
+      {
+         printf("Cambio de lado por cambio de letrero");
+         if (isEmpty(barcos_R)==0)
+      {
+         struct CEthread current_process = dequeue(&barcos_R);
+         printf("Hilo va a pasar el canal de derecha a izquierda\n");
+         print_process(&current_process);
+         CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
+         CEthread_join(&current_process);
+         timer = timer + 5 + 5*(current_process.arrival_time);
+         CEthread_end(&current_process);
+      }
+
+      else{
+         finish_R = false;
+         break;
+      }
+      }
+      printf("\nCambio de lado por cambio de letrero\n");
+      timer = 0;
+      
+   }
+
 }
 
 void tico(struct Node* barcos_L, struct Node* barcos_R) {
-    
+   
+   printf("Nada de momento");
+
 }
 
 
@@ -40,7 +156,7 @@ int main() {
 
    int alg_canal; //Algoritmo de canal 1.Equidad 2.Letrero 3.Tico
    int intervalo; //Intervalo para el letrero
-   int W; //Numero de barcos para equidad
+   //int W; //Numero de barcos para equidad
 
    CEmutex canal_mutex; //Control de recursos
 
@@ -52,7 +168,7 @@ int main() {
    scanf("%d", &pesqueros_L);
 
    printf("Ingrese la cantidad de barcos PATRULLA a la IZQUIERDA del canal: ");
-   scanf("%d", &normales_L);
+   scanf("%d", &patrullas_L);
 
    printf("Ingrese la cantidad de barcos NORMALES a la DERECHA del canal: ");
    scanf("%d", &normales_R);
@@ -61,7 +177,7 @@ int main() {
    scanf("%d", &pesqueros_R);
 
    printf("Ingrese la cantidad de barcos PATRULLA a la DERECHA del canal: ");
-   scanf("%d", &normales_R);
+   scanf("%d", &patrullas_R);
 
 
    //Creamos las listas de la izquierda y la derecha
@@ -85,19 +201,19 @@ int main() {
       append_node(&barcos_L, create_process(i+1,Patrulla,5,10,20));
    }
 
-   for (int i = 0; i < normales_L; i++)
+   for (int i = 0; i < normales_R; i++)
    {
-      append_node(&barcos_L, create_process(i+1,Normal,5,10,20));
+      append_node(&barcos_R, create_process(i+1,Normal,5,10,20));
    }
 
-   for (int i = 0; i < pesqueros_L; i++)
+   for (int i = 0; i < pesqueros_R; i++)
    {
-      append_node(&barcos_L, create_process(i+1,Pesquero,5,10,20));
+      append_node(&barcos_R, create_process(i+1,Pesquero,5,10,20));
    }
 
-   for (int i = 0; i < patrullas_L; i++)
+   for (int i = 0; i < patrullas_R; i++)
    {
-      append_node(&barcos_L, create_process(i+1,Patrulla,5,10,20));
+      append_node(&barcos_R, create_process(i+1,Patrulla,5,10,20));
    }
     
    // Se pide el algoritmo de canal deseado.
@@ -109,7 +225,9 @@ int main() {
    case 1:
       edfs(barcos_L);
       edfs(barcos_R);
+      printf("La lista izquierda es:\n");
       print_process_list(barcos_L);
+      printf("La lista derecha es:\n");
       print_process_list(barcos_R);
       break;
    

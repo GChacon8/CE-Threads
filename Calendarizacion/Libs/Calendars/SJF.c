@@ -20,6 +20,8 @@ void SJF(struct Node* head) {
         total_turnaround_time += current->process.turnaround_time;
 
         current_time += current->process.burst_time;
+        
+        current->process.completion_time = current->process.arrival_time + current->process.burst_time + current_time;
         current=current->next;
     }
 }
