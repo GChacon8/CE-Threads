@@ -19,82 +19,37 @@ int l_size(struct Node* head) {
 }
 
 /**
- * Esta funcion ordena una lista de procesos
- * @param processes lista de objetos de tipo proceso
- * @param n length
- */
-void sort_by_arrival_time(struct Node** head) {
-    struct Node* i;
-    struct Node* j;
-    struct Process temp;
-
-    for (i = *head; i != NULL; i=i->next) {
-        for (j =i->next; j != NULL; j=j->next) {
-            if (i->process.arrival_time > j->process.arrival_time) {
-                temp = i->process;
-                i->process = j->process;
-                j->process = temp;
-            }
-        }
-    }
-}
-    /**
-     * Esta funcion ordena una lista de procesos
-     * @param processes lista de objetos de tipo proceso
-     * @param n length
-     */
-void sort_by_waiting_time(struct Node** head) {
-    struct Node* i;
-    struct Node* j;
-    struct Process temp;
-
-    for (i = *head; i != NULL; i=i->next) {
-        for (j =i->next; j != NULL; j=j->next) {
-            if (i->process.waiting_time > j->process.waiting_time) {
-                temp = i->process;
-                i->process = j->process;
-                j->process = temp;
-            }
-        }
-    }
-}
-
-/**
- * Esta funcion calcula el tiempo promedio de espera de los procesos
- * @param processes lista de objetos de tipo proceso
- * @param n lenght
- * @return Tiempo promedio de espera
+ * Esta funcion se encarga de calcular el tiempo promedio de espera
+ * @param head La cabeza de una lista enlazada
+ * @return float
  */
 float calculate_average_waiting_time(struct Node* head) {
     float total_waiting_time = 0;
-    int count = 0;
+    struct Node* current = head;
+    int size = l_size(head);
 
-    struct Node* temp = head;
-
-    while (temp != NULL) {
-        total_waiting_time += temp->process.waiting_time;
-        count++;
-        temp = temp->next;
+    while (current != NULL) {
+        total_waiting_time += current->process.waiting_time;
+        current = current->next;
     }
-
-    if (count == 0) {
-        return 0;
-    }
-    return total_waiting_time / count;
+    return total_waiting_time / size;
 }
 
 /**
- * Esta funcion calcula el tiempo promedio en cola de los procesos
- * @param processes lista de objetos de tipo proceso
- * @param n length
- * @return Tiempo de cola promedio de los procesos
+ * Esta funcion se encarga de calcular el tiempo de cola promedio
+ * @param head La cabeza de una lista enlazada
+ * @return float
  */
-float calculate_average_turnaround_time(struct Process processes[], int n) {
+float calculate_average_turnaround_time(struct Node* head) {
     float total_turnaround_time = 0;
-    for (int i = 0; i < n; i++) {
-        total_turnaround_time += processes[i].turnaround_time;
+    struct Node* current = head;
+    int size = l_size(head);
+    while (current != NULL) {
+        total_turnaround_time += current->process.turnaround_time;
+        current = current->next;
     }
-    return total_turnaround_time / n;
+
+    return total_turnaround_time / size;
 }
 
 /**
@@ -135,7 +90,7 @@ struct Process create_process(int pid, TipoBarco tipo, int priority, int burst_t
 /**
  * Este metodo se encarga de crear el nodo principal de la lista enlazada
  * @param process
- * @return
+ * @return Process
  */
 struct Node* create_node(struct Process process) {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
@@ -197,7 +152,7 @@ void free_list(struct Node* head) {
 }
 
 /**
- *
+ * Esta funcion se encarga de colocar en cola un proceso
  * @param head
  * @param process
  */
@@ -206,7 +161,7 @@ void enqueue(struct Node** head, struct Process process) {
 }
 
 /**
- * 
+ * Esta funcion revisa si la lista enlazada esta vacia
  * @param head 
  * @return 
  */
@@ -215,7 +170,7 @@ int isEmpty(struct Node* head) {
 }
 
 /**
- *
+ * Esta funcion se encarga de sacar un proceso de la cola
  * @param head
  * @return
  */
@@ -231,4 +186,3 @@ struct Process dequeue(struct Node** head) {
 
     return process;
 }
-

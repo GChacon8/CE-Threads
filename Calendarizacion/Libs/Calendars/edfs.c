@@ -2,9 +2,7 @@
 
 /**
  * Esta funcion se encarga de calcular la calendarizacion del EDFS
- * @param processes objeto de tipo proceso
- * @param n length
- * @param total_time
+ * @param head La cabeza de una lista enlazada
  */
 void edfs(struct Node* head) {
     struct Node* current = head;

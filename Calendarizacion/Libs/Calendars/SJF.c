@@ -1,9 +1,8 @@
 #include "SJF.h"
 
 /**
- * Esta funcion se encarga de calcular el tiempo por SJF
- * @param processes objeto de tipo proceso
- * @param n lenght
+ * Esta funcion se encarga de calcular la calendarizacion del SJF
+ * @param head La cabeza de una lista enlazada
  */
 void SJF(struct Node* head) {
     int current_time = 0;
