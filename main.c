@@ -54,6 +54,7 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
             case 0:
                strcpy(command,"patrulla_izq_on"); enviarComando(fd,command); break;
          }
+         sleep(4);
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
          CEthread_join(&current_process);
@@ -67,6 +68,7 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
             case 0:
                strcpy(command,"patrulla_izq_off"); enviarComando(fd,command); break;
          }
+         sleep(4);
          CEthread_end(&current_process);
 
       }
@@ -92,6 +94,7 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
             case 0:
                strcpy(command,"patrulla_der_on"); enviarComando(fd,command); break;
          }
+         sleep(4);
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
          CEthread_join(&current_process);
@@ -103,6 +106,7 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
             case 0:
                strcpy(command,"patrulla_der_off"); enviarComando(fd,command); break;
          }
+         sleep(4);
          CEthread_end(&current_process);
       }
 
@@ -144,6 +148,7 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
                case 0:
                   strcpy(command,"patrulla_izq_on"); enviarComando(fd,command); break;
             }
+            sleep(4);
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
          CEthread_join(&current_process);
@@ -158,6 +163,7 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
                case 0:
                   strcpy(command,"patrulla_izq_off"); enviarComando(fd,command); break;
             }
+            sleep(4);
          CEthread_end(&current_process);
       }
 
@@ -186,6 +192,7 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
                case 0:
                   strcpy(command,"patrulla_der_on"); enviarComando(fd,command); break;
             }
+            sleep(4);
          printf("Hilo va a pasar el canal de derecha a izquierda\n");
          print_process(&current_process);
          CEthread_create(&current_process, cruzar_canal, &(current_process.arrival_time));
@@ -201,6 +208,7 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
                case 0:
                   strcpy(command,"patrulla_der_off"); enviarComando(fd,command); break;
             }
+            sleep(4);
          CEthread_end(&current_process);
       }
 

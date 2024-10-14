@@ -74,6 +74,7 @@ void free_list(struct Node* head);
 void enqueue(struct Node** head, struct CEthread process);
 int isEmpty(struct Node* head);
 struct CEthread dequeue(struct Node** head);
+struct CEthread peek(struct Node* head);
 void print_process(struct Node* head);
 
 #endif /* CETHREADS_H */

@@ -265,6 +265,15 @@ struct CEthread dequeue(struct Node** head) {
     return process;
 }
 
+struct CEthread peek(struct Node* head) {
+    if (isEmpty(head)) {
+        struct CEthread empty_process = {0};  // Proceso vacío si la lista está vacía
+        return empty_process;
+    }
+
+    return head->process;  // Retorna el proceso del primer nodo sin eliminarlo
+}
+
 /**
  * Esta funcion imprime un solo proceso
  * @param head La cabeza de una lista enlazada
