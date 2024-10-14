@@ -42,6 +42,9 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
    {
       if (isEmpty(barcos_L)==0)
       {
+         strcpy(command,"canal_izq_on");
+         enviarComando(fd,command);
+         sleep(4);
          struct CEthread current_process = dequeue(&barcos_L);
          printf("Hilo va a pasar el canal de izquierda a derecha\n");
          switch (current_process.arrival_time) {
@@ -69,6 +72,9 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
                strcpy(command,"patrulla_izq_off"); enviarComando(fd,command); break;
          }
          sleep(4);
+         strcpy(command,"canal_izq_off");
+         enviarComando(fd,command);
+         sleep(4);
          CEthread_end(&current_process);
 
       }
@@ -82,6 +88,9 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
    {
       if (isEmpty(barcos_R)==0)
       {
+         strcpy(command,"canal_der_on");
+         enviarComando(fd,command);
+         sleep(4);
          struct CEthread current_process = dequeue(&barcos_R);
          printf("Hilo va a pasar el canal de derecha a izquierda\n");
          switch (current_process.arrival_time) {
@@ -106,6 +115,9 @@ void equidad(struct Node* barcos_L, struct Node* barcos_R) {
             case 0:
                strcpy(command,"patrulla_der_off"); enviarComando(fd,command); break;
          }
+         sleep(4);
+         strcpy(command,"canal_der_off");
+         enviarComando(fd,command);
          sleep(4);
          CEthread_end(&current_process);
       }
@@ -136,6 +148,9 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
       {
          if (isEmpty(barcos_L)==0)
       {
+         strcpy(command,"canal_izq_on");
+         enviarComando(fd,command);
+         sleep(4);
          struct CEthread current_process = dequeue(&barcos_L);
          printf("Hilo va a pasar el canal de izquierda a derecha\n");
             switch (current_process.arrival_time) {
@@ -164,6 +179,9 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
                   strcpy(command,"patrulla_izq_off"); enviarComando(fd,command); break;
             }
             sleep(4);
+            strcpy(command,"canal_izq_off");
+            enviarComando(fd,command);
+            sleep(4);
          CEthread_end(&current_process);
       }
 
@@ -181,6 +199,9 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
          printf("Cambio de lado por cambio de letrero");
          if (isEmpty(barcos_R)==0)
       {
+         strcpy(command,"canal_der_on");
+         enviarComando(fd,command);
+         sleep(4);
          struct CEthread current_process = dequeue(&barcos_R);
             switch (current_process.arrival_time) {
                case 2:
@@ -208,6 +229,9 @@ void letrero(struct Node* barcos_L, struct Node* barcos_R) {
                case 0:
                   strcpy(command,"patrulla_der_off"); enviarComando(fd,command); break;
             }
+            sleep(4);
+            strcpy(command,"canal_der_off");
+            enviarComando(fd,command);
             sleep(4);
          CEthread_end(&current_process);
       }
