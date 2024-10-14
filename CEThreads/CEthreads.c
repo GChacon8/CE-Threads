@@ -16,9 +16,9 @@
 #define STACK_SIZE 1024 * 1024 // Tamaño de la pila de 1MB
 
 // Función para crear un hilo (equivalente a pthread_create)
-int CEthread_create(CEthread *thread, CEthread_attr_t *attr, void *(*start_routine)(void *), void *arg) {
+int CEthread_create(struct CEthread *thread, void *(*start_routine)(void *), void *arg) {
     // Define el tamaño de la pila
-    size_t stack_size = attr ? attr->stack_size : (1024 * 1024); // 1MB de pila por defecto
+    size_t stack_size = (1024 * 1024); // 1MB de pila por defecto
     thread->stack = malloc(stack_size);
     if (!thread->stack) return -1; // Error al asignar memoria
 
@@ -37,13 +37,13 @@ int CEthread_create(CEthread *thread, CEthread_attr_t *attr, void *(*start_routi
 }
 
 // Función para esperar a que un hilo termine (equivalente a pthread_join)
-int CEthread_join(CEthread *thread) {
+int CEthread_join(struct CEthread *thread) {
     // Espera que el hilo termine (waitpid con __WALL para hilos tipo clone)
     return waitpid(thread->thread_id, NULL, __WALL);
 }
 
 // Terminar el hilo
-void CEthread_end(CEthread *thread) {
+void CEthread_end(struct CEthread *thread) {
     kill(thread->thread_id, SIGTERM);  // Enviar señal de terminación
     free(thread->stack);  // Liberar la pila
 }

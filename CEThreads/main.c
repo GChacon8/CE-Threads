@@ -28,7 +28,7 @@ void *incrementar(void *arg) {
 }
 
 int main() {
-    CEthread threads[NUM_THREADS];
+    struct CEthread threads[NUM_THREADS];
     int thread_ids[NUM_THREADS];
 
     // Inicializar el mutex
@@ -37,7 +37,7 @@ int main() {
     // Crear los hilos
     for (int i = 0; i < NUM_THREADS; ++i) {
         thread_ids[i] = i + 1;
-        if (CEthread_create(&threads[i], NULL, incrementar, &thread_ids[i]) != 0) {
+        if (CEthread_create(&threads[i], incrementar, &thread_ids[i]) != 0) {
             perror("Error al crear hilo");
             exit(1);
         }
