@@ -2,15 +2,15 @@
 #include "Libs/PROCESS/PROCESS.h"
 #include "Libs/Calendars/Calendars.h"
 
-int main(void)
-{
-    struct Process procesess[3];
+int main(void){
+    struct Node* procesess = NULL;
 
-    procesess[0] = create_process(1,Pesquero,2,10,20);
-    procesess[1] = create_process(2,Normal,2,10,20);
-    procesess[2] = create_process(3,Pesquero,5,15,30);
+    append_node(&procesess, create_process(1,Patrulla,5,10,20));
+    append_node(&procesess, create_process(2,Normal,2,15,30));
+    append_node(&procesess, create_process(3,Pesquero,5,20,40));
 
-    priority(procesess,2);
-    print_results(procesess,3);
+    SJF(procesess);
+    print_process_list(procesess);
+
 }
 

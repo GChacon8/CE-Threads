@@ -272,30 +272,6 @@ Libs/PROCESS/PROCESS.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/PROCESS/PROCESS.c.s
 .PHONY : Libs/PROCESS/PROCESS.c.s
 
-Libs/Queue/queue.obj: Libs/Queue/queue.c.obj
-.PHONY : Libs/Queue/queue.obj
-
-# target to build an object file
-Libs/Queue/queue.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj
-.PHONY : Libs/Queue/queue.c.obj
-
-Libs/Queue/queue.i: Libs/Queue/queue.c.i
-.PHONY : Libs/Queue/queue.i
-
-# target to preprocess a source file
-Libs/Queue/queue.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.i
-.PHONY : Libs/Queue/queue.c.i
-
-Libs/Queue/queue.s: Libs/Queue/queue.c.s
-.PHONY : Libs/Queue/queue.s
-
-# target to generate assembly for a file
-Libs/Queue/queue.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.s
-.PHONY : Libs/Queue/queue.c.s
-
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -347,9 +323,6 @@ help:
 	@echo ... Libs/PROCESS/PROCESS.obj
 	@echo ... Libs/PROCESS/PROCESS.i
 	@echo ... Libs/PROCESS/PROCESS.s
-	@echo ... Libs/Queue/queue.obj
-	@echo ... Libs/Queue/queue.i
-	@echo ... Libs/Queue/queue.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

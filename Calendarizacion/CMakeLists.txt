@@ -14,8 +14,6 @@ add_executable(Calendarizacion main.c
         Libs/Calendars/SJF.h
         Libs/Calendars/Round_Robin.c
         Libs/Calendars/Round_Robin.h
-        Libs/Queue/queue.c
-        Libs/Queue/queue.h
         Libs/Calendars/edfs.c
         Libs/Calendars/edfs.h
         Libs/Calendars/Calendars.h)

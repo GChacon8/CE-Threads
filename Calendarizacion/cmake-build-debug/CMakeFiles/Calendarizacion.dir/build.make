@@ -152,24 +152,10 @@ CMakeFiles/Calendarizacion.dir/Libs/Calendars/Round_Robin.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Calendarizacion.dir/Libs/Calendars/Round_Robin.c.s"
 	"D:\CLion 2024.2.2\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Gits\CE-Threads\Calendarizacion\Libs\Calendars\Round_Robin.c -o CMakeFiles\Calendarizacion.dir\Libs\Calendars\Round_Robin.c.s
 
-CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj: CMakeFiles/Calendarizacion.dir/flags.make
-CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj: D:/Gits/CE-Threads/Calendarizacion/Libs/Queue/queue.c
-CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj: CMakeFiles/Calendarizacion.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Gits\CE-Threads\Calendarizacion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj"
-	"D:\CLion 2024.2.2\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj -MF CMakeFiles\Calendarizacion.dir\Libs\Queue\queue.c.obj.d -o CMakeFiles\Calendarizacion.dir\Libs\Queue\queue.c.obj -c D:\Gits\CE-Threads\Calendarizacion\Libs\Queue\queue.c
-
-CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.i"
-	"D:\CLion 2024.2.2\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Gits\CE-Threads\Calendarizacion\Libs\Queue\queue.c > CMakeFiles\Calendarizacion.dir\Libs\Queue\queue.c.i
-
-CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.s"
-	"D:\CLion 2024.2.2\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Gits\CE-Threads\Calendarizacion\Libs\Queue\queue.c -o CMakeFiles\Calendarizacion.dir\Libs\Queue\queue.c.s
-
 CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj: CMakeFiles/Calendarizacion.dir/flags.make
 CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj: D:/Gits/CE-Threads/Calendarizacion/Libs/Calendars/edfs.c
 CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj: CMakeFiles/Calendarizacion.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Gits\CE-Threads\Calendarizacion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\Gits\CE-Threads\Calendarizacion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj"
 	"D:\CLion 2024.2.2\bin\mingw\bin\gcc.exe" $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj -MF CMakeFiles\Calendarizacion.dir\Libs\Calendars\edfs.c.obj.d -o CMakeFiles\Calendarizacion.dir\Libs\Calendars\edfs.c.obj -c D:\Gits\CE-Threads\Calendarizacion\Libs\Calendars\edfs.c
 
 CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.i: cmake_force
@@ -188,7 +174,6 @@ Calendarizacion_OBJECTS = \
 "CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.obj" \
 "CMakeFiles/Calendarizacion.dir/Libs/Calendars/SJF.c.obj" \
 "CMakeFiles/Calendarizacion.dir/Libs/Calendars/Round_Robin.c.obj" \
-"CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj" \
 "CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj"
 
 # External object files for target Calendarizacion
@@ -200,13 +185,12 @@ Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/Libs/Calendars/fcfs.c.obj
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.obj
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/Libs/Calendars/SJF.c.obj
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/Libs/Calendars/Round_Robin.c.obj
-Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/build.make
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/linkLibs.rsp
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/objects1.rsp
 Calendarizacion.exe: CMakeFiles/Calendarizacion.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\Gits\CE-Threads\Calendarizacion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable Calendarizacion.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\Gits\CE-Threads\Calendarizacion\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable Calendarizacion.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Calendarizacion.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
