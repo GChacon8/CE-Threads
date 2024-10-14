@@ -2,20 +2,14 @@
 #include <stdio.h>
 
 /**
- * Esta función cuenta el número de nodos en la lista enlazada.
- * @param head Puntero al inicio de la lista enlazada.
- * @return Número de nodos en la lista.
+ * Esta funcion se encarga de cambiar un proceso por otro en la lista.
+ * @param xp objeto de tipo proceso
+ * @param yp objeto de tipo proceso
  */
-int size(struct Node* head) {
-    int count = 0;
-    struct Node* current = head;
-
-    while (current != NULL) {
-        count++;
-        current = current->next;
-    }
-
-    return count;
+void swap(struct Process *xp, struct Process *yp) {
+    struct Process temp = *xp;
+    *xp = *yp;
+    *yp = temp;
 }
 
 /**
@@ -38,37 +32,11 @@ void sort_by_arrival_time(struct Node** head) {
         }
     }
 }
-
-void sort_by_burst_time(struct Node** head) {
-    if (*head == NULL) {
-        return;
-    }
-
-    struct Node* current;
-    struct Node* next_process;
-    struct Process temp_process;
-
-    for (current = *head; current != NULL; current = current->next) {
-        for (next_process = current->next; next_process != NULL; next_process = next_process->next) {
-            // Verificación de punteros no nulos
-            if (current != NULL && next_process != NULL) {
-                if (current->process.burst_time > next_process->process.burst_time) {
-                    // Intercambia los procesos
-                    temp_process = current->process;
-                    current->process = next_process->process;
-                    next_process->process = temp_process;
-                }
-            }
-        }
-    }
-}
-
-
-
-/**
- * 
- * @param head
- */
+    /**
+     * Esta funcion ordena una lista de procesos
+     * @param processes lista de objetos de tipo proceso
+     * @param n length
+     */
 void sort_by_waiting_time(struct Node** head) {
     struct Node* i;
     struct Node* j;
@@ -107,6 +75,20 @@ float calculate_average_waiting_time(struct Node* head) {
         return 0;
     }
     return total_waiting_time / count;
+}
+
+/**
+ * Esta funcion calcula el tiempo promedio en cola de los procesos
+ * @param processes lista de objetos de tipo proceso
+ * @param n length
+ * @return Tiempo de cola promedio de los procesos
+ */
+float calculate_average_turnaround_time(struct Process processes[], int n) {
+    float total_turnaround_time = 0;
+    for (int i = 0; i < n; i++) {
+        total_turnaround_time += processes[i].turnaround_time;
+    }
+    return total_turnaround_time / n;
 }
 
 /**
@@ -219,7 +201,7 @@ void enqueue(struct Node** head, struct Process process) {
 
 /**
  * 
- * @param head
+ * @param head 
  * @return 
  */
 int isEmpty(struct Node* head) {

@@ -29,12 +29,13 @@ struct Node {
     struct Node* next;
 };
 
-int size(struct Node* head);
+void swap(struct Process *xp, struct Process *yp);
 void sort_by_arrival_time(struct Node** head);
 void sort_by_waiting_time(struct Node** head);
 float calculate_average_waiting_time(struct Node* head);
+float calculate_average_turnaround_time(struct Process processes[], int n);
 struct Process create_process(int pid, TipoBarco tipo, int priority, int burst_time, int deadline);
-void sort_by_burst_time(struct Node** head);
+
 struct Node* create_node(struct Process process);
 void append_node(struct Node** head, struct Process process);
 void print_process_list(struct Node* head);

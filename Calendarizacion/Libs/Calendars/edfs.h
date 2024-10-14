@@ -6,6 +6,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void edfs(struct Node** head);
+void edfs(struct Process processes[], int n, int total_time);
 
 #endif //EDFS_H

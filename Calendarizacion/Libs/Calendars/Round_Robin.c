@@ -49,6 +49,7 @@ void round_robin(struct Node* head) {
             current_time += current_process.remaining_time;
             current_process.remaining_time = 0;
             completed++;
+
             current_process.completion_time = current_time;
             current_process.turnaround_time = current_process.completion_time - current_process.arrival_time;
             current_process.waiting_time = current_process.turnaround_time - current_process.burst_time;
