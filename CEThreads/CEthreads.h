@@ -12,7 +12,6 @@
 #define MAX_PROCESSES 10
 
 
-
 // Estructura para representar un hilo (equivalente a pthread_t)
 typedef struct {
     int thread_id;       // ID del hilo

@@ -1,7 +1,8 @@
 #ifndef FCFS_HPP
 #define FCFS_HPP
 
-#include "../PROCESS/PROCESS.h"
+#include "../../../CEThreads/CEthreads.h"
+#include "../../../CEThreads/CEthreads.c"
 
 void fcfs(struct Node* head);
 
