@@ -2,11 +2,13 @@
 
 /**
  * Esta funcion se encarga de calcular el tiempo por fcfs
- * @param processes objeto de tipo proceso
+ * @param processes lista de objetos de tipo proceso
  * @param n length
  */
 void fcfs(struct Process processes[], int n) {
     int current_time = 0;
+
+    sort_by_arrival_time(processes, n);
 
     for (int i = 0; i < n; i++) {
         if (current_time < processes[i].arrival_time) {

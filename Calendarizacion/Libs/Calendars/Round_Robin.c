@@ -6,8 +6,9 @@
  * @param n lenght
  * @param time_quantum Tamaño del quantum(Set basico 3)
  */
-void round_robin(struct Process processes[], int n, int time_quantum) {
+void round_robin(struct Process processes[], int n) {
     struct Queue ready_queue;
+    int time_quantum = 3;
     initQueue(&ready_queue);
 
     int current_time = 0;

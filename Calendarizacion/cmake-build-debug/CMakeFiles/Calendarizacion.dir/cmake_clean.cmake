@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj.d"
   "CMakeFiles/Calendarizacion.dir/Libs/Calendars/fcfs.c.obj"
   "CMakeFiles/Calendarizacion.dir/Libs/Calendars/fcfs.c.obj.d"
+  "CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.obj"
+  "CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.obj.d"
   "CMakeFiles/Calendarizacion.dir/Libs/PROCESS/PROCESS.c.obj"
   "CMakeFiles/Calendarizacion.dir/Libs/PROCESS/PROCESS.c.obj.d"
   "CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj"

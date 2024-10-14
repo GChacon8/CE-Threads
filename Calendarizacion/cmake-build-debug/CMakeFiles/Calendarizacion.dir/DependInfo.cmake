@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/Gits/CE-Threads/Calendarizacion/Libs/Calendars/SJF.c" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/SJF.c.obj" "gcc" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/SJF.c.obj.d"
   "D:/Gits/CE-Threads/Calendarizacion/Libs/Calendars/edfs.c" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj" "gcc" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/edfs.c.obj.d"
   "D:/Gits/CE-Threads/Calendarizacion/Libs/Calendars/fcfs.c" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/fcfs.c.obj" "gcc" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/fcfs.c.obj.d"
+  "D:/Gits/CE-Threads/Calendarizacion/Libs/Calendars/priority.c" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.obj" "gcc" "CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.obj.d"
   "D:/Gits/CE-Threads/Calendarizacion/Libs/PROCESS/PROCESS.c" "CMakeFiles/Calendarizacion.dir/Libs/PROCESS/PROCESS.c.obj" "gcc" "CMakeFiles/Calendarizacion.dir/Libs/PROCESS/PROCESS.c.obj.d"
   "D:/Gits/CE-Threads/Calendarizacion/Libs/Queue/queue.c" "CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj" "gcc" "CMakeFiles/Calendarizacion.dir/Libs/Queue/queue.c.obj.d"
   "D:/Gits/CE-Threads/Calendarizacion/main.c" "CMakeFiles/Calendarizacion.dir/main.c.obj" "gcc" "CMakeFiles/Calendarizacion.dir/main.c.obj.d"

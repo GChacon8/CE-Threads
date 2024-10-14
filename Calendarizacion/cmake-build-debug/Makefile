@@ -224,6 +224,30 @@ Libs/Calendars/fcfs.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/Calendars/fcfs.c.s
 .PHONY : Libs/Calendars/fcfs.c.s
 
+Libs/Calendars/priority.obj: Libs/Calendars/priority.c.obj
+.PHONY : Libs/Calendars/priority.obj
+
+# target to build an object file
+Libs/Calendars/priority.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.obj
+.PHONY : Libs/Calendars/priority.c.obj
+
+Libs/Calendars/priority.i: Libs/Calendars/priority.c.i
+.PHONY : Libs/Calendars/priority.i
+
+# target to preprocess a source file
+Libs/Calendars/priority.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.i
+.PHONY : Libs/Calendars/priority.c.i
+
+Libs/Calendars/priority.s: Libs/Calendars/priority.c.s
+.PHONY : Libs/Calendars/priority.s
+
+# target to generate assembly for a file
+Libs/Calendars/priority.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Calendarizacion.dir\build.make CMakeFiles/Calendarizacion.dir/Libs/Calendars/priority.c.s
+.PHONY : Libs/Calendars/priority.c.s
+
 Libs/PROCESS/PROCESS.obj: Libs/PROCESS/PROCESS.c.obj
 .PHONY : Libs/PROCESS/PROCESS.obj
 
@@ -317,6 +341,9 @@ help:
 	@echo ... Libs/Calendars/fcfs.obj
 	@echo ... Libs/Calendars/fcfs.i
 	@echo ... Libs/Calendars/fcfs.s
+	@echo ... Libs/Calendars/priority.obj
+	@echo ... Libs/Calendars/priority.i
+	@echo ... Libs/Calendars/priority.s
 	@echo ... Libs/PROCESS/PROCESS.obj
 	@echo ... Libs/PROCESS/PROCESS.i
 	@echo ... Libs/PROCESS/PROCESS.s
