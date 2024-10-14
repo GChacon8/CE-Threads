@@ -7,11 +7,7 @@
  */
 void fcfs(struct Node* head) {
     int current_time = 0;
-
-    sort_by_arrival_time(&head);
-
     struct Node* current = head;
-
     while (current != NULL) {
         if (current_time < current->process.arrival_time) {
             current_time = current->process.arrival_time;

@@ -2,14 +2,20 @@
 #include <stdio.h>
 
 /**
- * Esta funcion se encarga de cambiar un proceso por otro en la lista.
- * @param xp objeto de tipo proceso
- * @param yp objeto de tipo proceso
+ * Esta función cuenta el número de nodos en la lista enlazada.
+ * @param head Puntero al inicio de la lista enlazada.
+ * @return Número de nodos en la lista.
  */
-void swap(struct Process *xp, struct Process *yp) {
-    struct Process temp = *xp;
-    *xp = *yp;
-    *yp = temp;
+int l_size(struct Node* head) {
+    int count = 0;
+    struct Node* current = head;
+
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+
+    return count;
 }
 
 /**

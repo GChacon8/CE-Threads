@@ -9,7 +9,7 @@ int main(void){
     append_node(&procesess, create_process(2,Normal,2,15,30));
     append_node(&procesess, create_process(3,Pesquero,5,20,40));
 
-    SJF(procesess);
+    edfs(procesess);
     print_process_list(procesess);
 
 }
