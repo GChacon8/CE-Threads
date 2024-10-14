@@ -1,10 +1,8 @@
 #include "Round_Robin.h"
 
 /**
- * Esta funcion se encarga de calcular el tiempo que se  gastaria con el round_robin
- * @param processes objeto de tipo proceso
- * @param n lenght
- * @param time_quantum Tamaño del quantum(Set basico 3)
+ * Esta funcion se encarga de calcular la calendarizacion del round robin
+ * @param head La cabeza de una lista enlazada
  */
 void round_robin(struct Node* head) {
     int time_quantum = 3;

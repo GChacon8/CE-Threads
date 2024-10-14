@@ -1,17 +1,12 @@
 #include "fcfs.h"
 
 /**
- * Esta funcion se encarga de calcular el tiempo por fcfs
- * @param processes lista de objetos de tipo proceso
- * @param n length
+ * Esta funcion se encarga de calcular la calendarizacion del FCFS
+ * @param head La cabeza de una lista enlazada
  */
 void fcfs(struct Node* head) {
     int current_time = 0;
-
-    sort_by_arrival_time(&head);
-
     struct Node* current = head;
-
     while (current != NULL) {
         if (current_time < current->process.arrival_time) {
             current_time = current->process.arrival_time;

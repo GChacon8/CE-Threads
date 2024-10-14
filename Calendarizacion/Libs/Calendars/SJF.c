@@ -1,59 +1,25 @@
 #include "SJF.h"
 
 /**
- * Esta funcion se encarga de calcular el tiempo por SJF
- * @param processes objeto de tipo proceso
- * @param n lenght
+ * Esta funcion se encarga de calcular la calendarizacion del SJF
+ * @param head La cabeza de una lista enlazada
  */
 void SJF(struct Node* head) {
     int current_time = 0;
-    int completed = 0;
+    int total_waiting_time = 0;
+    int total_turnaround_time = 0;
+    int size = l_size(head);
+    int count = 0;
+    struct Node* current = head;
 
-    while (completed != 0) {
-        struct Process* current_process = find_shortest_job(head, current_time);
+    while (current != NULL) {
+        current->process.waiting_time = current_time;
+        current->process.turnaround_time = current->process.waiting_time + current->process.burst_time;
 
-        if (current_process != NULL) {
-            current_process->completion_time = current_time + current_process->burst_time;
-            current_process->turnaround_time = current_process->completion_time - current_process->arrival_time;
-            current_process->waiting_time = current_process->turnaround_time - current_process->burst_time;
+        total_waiting_time += current->process.waiting_time;
+        total_turnaround_time += current->process.turnaround_time;
 
-            current_time = current_process->completion_time;
-            current_process->is_completed = 1;
-            completed++;
-
-            // Aquí podrías guardar o imprimir los resultados
-            printf("Proceso PID=%d completado en tiempo=%d\n", current_process->pid, current_process->completion_time);
-        } else {
-            current_time++; // Si no hay procesos listos, incrementamos el tiempo
-        }
+        current_time += current->process.burst_time;
+        current=current->next;
     }
-}
-
-/**
- *
- * @param head
- * @param current_time
- * @return
- */
-struct Process* find_shortest_job(struct Node* head, int current_time) {
-    struct Node* temp = head;
-    struct Process* shortest = NULL;
-    int min_burst = INT_MAX;
-
-    while (temp != NULL) {
-        if (temp->process.arrival_time <= current_time && temp->process.is_completed == 0) {
-            if (temp->process.burst_time < min_burst) {
-                min_burst = temp->process.burst_time;
-                shortest = &(temp->process);
-            } else if (temp->process.burst_time == min_burst) {
-                // Si hay empate en tiempo de ráfaga, preferimos el que llegó primero
-                if (temp->process.arrival_time < shortest->arrival_time) {
-                    shortest = &(temp->process);
-                }
-            }
-        }
-        temp = temp->next;
-    }
-
-    return shortest;
 }
