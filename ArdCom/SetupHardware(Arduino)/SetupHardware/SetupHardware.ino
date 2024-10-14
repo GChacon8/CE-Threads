@@ -25,16 +25,55 @@ void loop() {
 
     command.trim();  // Elimina espacios en blanco alrededor del comando
 
-    if (command == "on") {
+    if (command == "patrulla_izq_on") {
       digitalWrite(ledPin2, HIGH);  // Enciende el LED en el pin 2
       Serial.println("LED encendido");
-    } else if (command == "off") {
+    } else if (command == "patrulla_izq_off") {
       digitalWrite(ledPin2, LOW);   // Apaga el LED en el pin 2
       Serial.println("LED Off");
-    } else {
-      Serial.println("Comando no reconocido");
+    } else if (command == "pesquero_izq_on") {
+      digitalWrite(ledPin3, HIGH);   // Apaga el LED en el pin 3
+      Serial.println("LED encendido");
+    } else if (command == "pesquero_izq_off") {
+      digitalWrite(ledPin3, LOW);   // Apaga el LED en el pin 3
+      Serial.println("LED Off");
+    } else if (command == "normal_izq_on") {
+      digitalWrite(ledPin4, HIGH);   // Apaga el LED en el pin 4
+      Serial.println("LED encendido");
+    } else if (command == "normal_izq_off") {
+      digitalWrite(ledPin4, LOW);   // Apaga el LED en el pin 4
+      Serial.println("LED Off");
+    } else if (command == "canal_izq_on"){
+      digitalWrite(ledPin5, HIGH); //Enciende el LED en el pin 5
+      Serial.println("LED encendido");
+    }else if (command == "canal_izq_off") {
+      digitalWrite(ledPin5, LOW);   // Apaga el LED en el pin 5
+      Serial.println("LED Off");
+    } else if (command == "canal_der_on"){
+      digitalWrite(ledPin6, HIGH); //Enciende el LED en el pin 6
+      Serial.println("LED encendido");
+    } else if (command == "canal_der_off") {
+      digitalWrite(ledPin6, LOW);   // Apaga el LED en el pin 6
+      Serial.println("LED Off");
+    } else if (command == "normal_der_on") {
+      digitalWrite(ledPin7, HIGH);   // Apaga el LED en el pin 7
+      Serial.println("LED encendido");
+    } else if (command == "normal_der_off") {
+      digitalWrite(ledPin7, LOW);   // Apaga el LED en el pin 7
+      Serial.println("LED Off");
+    } else if (command == "pesquero_der_on") {
+      digitalWrite(ledPin8, HIGH);   // Apaga el LED en el pin 8
+      Serial.println("LED encendido");
+    } else if (command == "pesquero_der_off") {
+      digitalWrite(ledPin8, LOW);   // Apaga el LED en el pin 8
+      Serial.println("LED Off");
+    } else if (command == "patrulla_der_on") {
+      digitalWrite(ledPin9, HIGH);  // Enciende el LED en el pin 9
+      Serial.println("LED encendido");
+    } else if (command == "patrulla_der_off") {
+      digitalWrite(ledPin9, LOW);  // Enciende el LED en el pin 9
+      Serial.println("LED encendido");
     }
-
     delay(10);  // Agrega un pequeño retardo para asegurarte de que la respuesta se envíe completamente
   }
 }
