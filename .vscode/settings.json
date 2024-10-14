@@ -2,6 +2,9 @@
     "files.associations": {
         "process.h": "c",
         "limits.h": "c",
-        "stdio.h": "c"
-    }
+        "stdio.h": "c",
+        "cethreads.h": "c",
+        "calendars.h": "c"
+    },
+    "cmake.sourceDirectory": "/home/gabriel/Documents/GitHub/CE-Threads/ArdCom"
 }

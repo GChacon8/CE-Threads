@@ -1,10 +1,10 @@
-#define _GNU_SOURCE
+#define _GNU_SOURCE //Importante para el clone()
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>  // Para sleep()
+#include "Calendarizacion/Libs/Calendars/Calendars.h"
 #include "CEThreads/CEthreads.h"  // CEthreads
 #include "CEThreads/CEthreads.c"  // CEthreads
-#include "Calendarizacion/Libs/Calendars/Calendars.h"
 
 int main() {
 
@@ -17,8 +17,10 @@ int main() {
    int normales_R;
 
    int alg_canal; //Algoritmo de canal 1.Equidad 2.Letrero 3.Tico
-   int intervalo;
-   int W;
+   int intervalo; //Intervalo para el letrero
+   int W; //Numero de barcos para equidad
+
+   int calendarizador;
 
    
    printf("Ingrese la cantidad de barcos NORMALES a la IZQUIERDA del canal: ");
@@ -76,6 +78,55 @@ int main() {
       append_node(&barcos_L, create_process(i+1,Patrulla,5,10,20));
    }
     
+   // Se pide el algoritmo de canal deseado.
+   printf("Seleccione el calendarizador deseado:\n1.EDFS\n2.FCFS\n3.Priority\n4.RR\n5.SJF");
+   scanf("%d", &calendarizador);
+
+   switch (calendarizador)
+   {
+   case 1:
+      edfs(barcos_L);
+      edfs(barcos_R);
+      print_process_list(barcos_L);
+      print_process_list(barcos_R);
+      break;
+   
+   case 2:
+      fcfs(barcos_L);
+      fcfs(barcos_R);
+      print_process_list(barcos_L);
+      print_process_list(barcos_R);
+      break;
+   
+   case 3:
+      priority(barcos_L);
+      priority(barcos_R);
+      print_process_list(barcos_L);
+      print_process_list(barcos_R);
+      break;
+   
+   case 4:
+      round_robin(barcos_L);
+      round_robin(barcos_R);
+      print_process_list(barcos_L);
+      print_process_list(barcos_R);
+      break;
+   
+   case 5:
+      SJF(barcos_L);
+      SJF(barcos_R);
+      print_process_list(barcos_L);
+      print_process_list(barcos_R);
+      break;
+
+   default:
+      edfs(barcos_L);
+      edfs(barcos_R);
+      print_process_list(barcos_L);
+      print_process_list(barcos_R);
+      break;
+   }
+
    // Se pide el algoritmo de canal deseado.
    printf("Ingrese el algoritmo de canal deseado:\n1.Equidad\n2.Letrero\n3.Tico");
    scanf("%d", &alg_canal);

@@ -38,20 +38,6 @@ typedef struct {
     int futex;          // Estado del mutex (0 = desbloqueado, 1 = bloqueado)
 } CEmutex;
 
-struct Process {
-    int pid;
-    int arrival_time;
-    TipoBarco tipo;
-    int priority;
-    int burst_time;
-    int completion_time;
-    float turnaround_time;
-    int waiting_time;
-    int is_completed;
-    int remaining_time;
-    int deadline;
-};
-
 struct Node {
     struct CEthread process;
     struct Node* next;
@@ -59,7 +45,6 @@ struct Node {
 
 // Función para crear un hilo (equivalente a pthread_create)
 int CEthread_create(struct CEthread *thread, void *(*start_routine)(void *), void *arg);
-//int CEthread_create(CEthread *thread, void *(*start_routine)(void *), void *arg);
 
 // Función para terminar un hilo (equivalente a pthread_exit)
 void CEthread_end(struct CEthread *thread);
@@ -79,19 +64,15 @@ void CEmutex_lock(CEmutex *mutex);
 // Función para desbloquear un mutex (equivalente a pthread_mutex_unlock)
 void CEmutex_unlock(CEmutex *mutex);
 
-void swap(struct CEthread *xp, struct CEthread *yp);
-void sort_by_arrival_time(struct Node** head);
-void sort_by_waiting_time(struct Node** head);
+int l_size(struct Node* head);
 float calculate_average_waiting_time(struct Node* head);
-float calculate_average_turnaround_time(struct CEthread processes[], int n);
-struct Process create_process(int pid, TipoBarco tipo, int priority, int burst_time, int deadline);
-
+struct CEthread create_process(int thread_id, TipoBarco tipo, int priority, int burst_time, int deadline);
 struct Node* create_node(struct CEthread process);
 void append_node(struct Node** head, struct CEthread process);
 void print_process_list(struct Node* head);
 void free_list(struct Node* head);
 void enqueue(struct Node** head, struct CEthread process);
 int isEmpty(struct Node* head);
-struct Process dequeue(struct Node** head);
+struct CEthread dequeue(struct Node** head);
 
 #endif /* CETHREADS_H */

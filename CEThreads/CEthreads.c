@@ -80,107 +80,68 @@ void CEmutex_unlock(CEmutex *mutex) {
 }
 
 /**
- * Esta funcion se encarga de cambiar un proceso por otro en la lista.
- * @param xp objeto de tipo proceso
- * @param yp objeto de tipo proceso
+ * Esta función cuenta el número de nodos en la lista enlazada.
+ * @param head Puntero al inicio de la lista enlazada.
+ * @return Número de nodos en la lista.
  */
-void swap(struct Process *xp, struct Process *yp) {
-    struct Process temp = *xp;
-    *xp = *yp;
-    *yp = temp;
+int l_size(struct Node* head) {
+    int count = 0;
+    struct Node* current = head;
+
+    while (current != NULL) {
+        count++;
+        current = current->next;
+    }
+
+    return count;
 }
 
 /**
- * Esta funcion ordena una lista de procesos
- * @param processes lista de objetos de tipo proceso
- * @param n length
- */
-void sort_by_arrival_time(struct Node** head) {
-    struct Node* i;
-    struct Node* j;
-    struct Process temp;
-
-    for (i = *head; i != NULL; i=i->next) {
-        for (j =i->next; j != NULL; j=j->next) {
-            if (i->process.arrival_time > j->process.arrival_time) {
-                temp = i->process;
-                i->process = j->process;
-                j->process = temp;
-            }
-        }
-    }
-}
-    /**
-     * Esta funcion ordena una lista de procesos
-     * @param processes lista de objetos de tipo proceso
-     * @param n length
-     */
-void sort_by_waiting_time(struct Node** head) {
-    struct Node* i;
-    struct Node* j;
-    struct Process temp;
-
-    for (i = *head; i != NULL; i=i->next) {
-        for (j =i->next; j != NULL; j=j->next) {
-            if (i->process.waiting_time > j->process.waiting_time) {
-                temp = i->process;
-                i->process = j->process;
-                j->process = temp;
-            }
-        }
-    }
-}
-
-/**
- * Esta funcion calcula el tiempo promedio de espera de los procesos
- * @param processes lista de objetos de tipo proceso
- * @param n lenght
- * @return Tiempo promedio de espera
+ * Esta funcion se encarga de calcular el tiempo promedio de espera
+ * @param head La cabeza de una lista enlazada
+ * @return float
  */
 float calculate_average_waiting_time(struct Node* head) {
     float total_waiting_time = 0;
-    int count = 0;
+    struct Node* current = head;
+    int size = l_size(head);
 
-    struct Node* temp = head;
-
-    while (temp != NULL) {
-        total_waiting_time += temp->process.waiting_time;
-        count++;
-        temp = temp->next;
+    while (current != NULL) {
+        total_waiting_time += current->process.waiting_time;
+        current = current->next;
     }
-
-    if (count == 0) {
-        return 0;
-    }
-    return total_waiting_time / count;
+    return total_waiting_time / size;
 }
 
 /**
- * Esta funcion calcula el tiempo promedio en cola de los procesos
- * @param processes lista de objetos de tipo proceso
- * @param n length
- * @return Tiempo de cola promedio de los procesos
+ * Esta funcion se encarga de calcular el tiempo de cola promedio
+ * @param head La cabeza de una lista enlazada
+ * @return float
  */
-float calculate_average_turnaround_time(struct Process processes[], int n) {
+float calculate_average_turnaround_time(struct Node* head) {
     float total_turnaround_time = 0;
-    for (int i = 0; i < n; i++) {
-        total_turnaround_time += processes[i].turnaround_time;
+    struct Node* current = head;
+    int size = l_size(head);
+    while (current != NULL) {
+        total_turnaround_time += current->process.turnaround_time;
+        current = current->next;
     }
-    return total_turnaround_time / n;
+
+    return total_turnaround_time / size;
 }
 
 /**
  * Este metodo crea un proceso que se modelara como un barco
- * @param pid int
+ * @param thread_id int
  * @param tipo TipoBarco
  * @param priority int
  * @param burst_time int
  * @param deadline int
  * @return Process
  */
-struct Process create_process(int pid, TipoBarco tipo, int priority, int burst_time, int deadline) {
-    struct Process process;
-    process.pid = pid;
+struct CEthread create_process(int thread_id, TipoBarco tipo, int priority, int burst_time, int deadline) {
+    struct CEthread process;
+    process.thread_id = thread_id;
     process.burst_time = burst_time;
     process.completion_time = 0;
     process.turnaround_time = 0;
@@ -207,9 +168,9 @@ struct Process create_process(int pid, TipoBarco tipo, int priority, int burst_t
 /**
  * Este metodo se encarga de crear el nodo principal de la lista enlazada
  * @param process
- * @return
+ * @return Process
  */
-struct Node* create_node(struct Process process) {
+struct Node* create_node(struct CEthread process) {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
     if (new_node == NULL) {
         printf("Not enough memory to create new node\n");
@@ -225,7 +186,7 @@ struct Node* create_node(struct Process process) {
  * @param head
  * @param process
  */
-void append_node(struct Node** head, struct Process process) {
+void append_node(struct Node** head, struct CEthread process) {
     struct Node* new_node1 = create_node(process);
     if (*head == NULL) {
         *head = new_node1;
@@ -246,7 +207,7 @@ void print_process_list(struct Node* head) {
     struct Node* temp = head;
     while (temp != NULL) {
         printf("PID=%d, Arrival=%d, Tipo=%d, Burst=%d, Completition Time=%d, Waiting Time=%d\n",
-                temp->process.pid, temp->process.arrival_time,
+                temp->process.thread_id, temp->process.arrival_time,
                 temp->process.tipo, temp->process.burst_time,
                 temp->process.completion_time,temp->process.waiting_time);
         temp = temp->next;
@@ -269,16 +230,16 @@ void free_list(struct Node* head) {
 }
 
 /**
- *
+ * Esta funcion se encarga de colocar en cola un proceso
  * @param head
  * @param process
  */
-void enqueue(struct Node** head, struct Process process) {
+void enqueue(struct Node** head, struct CEthread process) {
     append_node(head, process);
 }
 
 /**
- * 
+ * Esta funcion revisa si la lista enlazada esta vacia
  * @param head 
  * @return 
  */
@@ -287,20 +248,19 @@ int isEmpty(struct Node* head) {
 }
 
 /**
- *
+ * Esta funcion se encarga de sacar un proceso de la cola
  * @param head
  * @return
  */
-struct Process dequeue(struct Node** head) {
+struct CEthread dequeue(struct Node** head) {
     if (isEmpty(*head)) {
-        struct Process empty_process = {0}; // Proceso vacío
+        struct CEthread empty_process = {0}; // Proceso vacío
         return empty_process;
     }
     struct Node* temp = *head;
-    struct Process process = temp->process;
+    struct CEthread process = temp->process;
     *head = (*head)->next;
     free(temp);
 
     return process;
 }
-
